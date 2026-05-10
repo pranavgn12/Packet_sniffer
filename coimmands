@@ -1,0 +1,25 @@
+python3 attacker_profile_sender.py --victim-ip 192.168.56.102 --category DoS
+python3 attacker_profile_sender.py --victim-ip 192.168.56.102 --category Reconnaissance
+python3 attacker_profile_sender.py --victim-ip 192.168.56.102 --category Fuzzers
+
+./venv/bin/python -m uvicorn victim_profile_server:app --host 0.0.0.0 --port 8000
+
+
+Attacker VM
+python -m venv .venv
+source .venv/bin/activate
+
+
+python -m uvicorn victim_profile_server:app --host 0.0.0.0 --port 8000
+python3 attacker_listener.py
+
+
+
+sudo mount -t virtiofs shared /mnt/shared
+sudo mkdir /mnt/shared
+
+hostname -I
+
+python3 dashboard.py --attacker-ip <attacker-vm-ip> --victim-ip <victim-vm-ip>
+
+python3 dashboard.py --attacker-ip 192.168.122.173 --victim-ip 192.168.122.24
